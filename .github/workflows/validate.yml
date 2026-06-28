@@ -1,0 +1,29 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate repository files
+        shell: pwsh
+        run: ./scripts/validate-repo.ps1
+
+      - name: Dry-run model download manifest
+        shell: pwsh
+        run: ./scripts/download-hf-models.ps1 -ComfyUIPath . -Profile gguf -DryRun
