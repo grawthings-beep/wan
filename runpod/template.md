@@ -63,6 +63,7 @@ Without one of those, RunPod will fail before the container starts because GHCR 
 | `INSTALL_SYSTEM_DEPS` | `0` |
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` |
 | `START_RUNPOD_SERVICES` | `0` |
+| `UPGRADE_PIP` | `0` |
 | `WORKSPACE_DIR` | `/workspace/comfyui` |
 | `MODEL_ROOT` | `/workspace/comfyui` |
 | `LISTEN` | `0.0.0.0` |

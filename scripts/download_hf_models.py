@@ -127,12 +127,46 @@ def normalize_entry(model):
     }
 
 
-def resolve_download_url(url, headers, timeout=120):
+REDIRECT_CODES = {301, 302, 303, 307, 308}
+
+
+class NoRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def strip_redirect_headers(headers):
+    stripped = {}
+    for key, value in headers.items():
+        if key.lower() in {"authorization", "cookie"}:
+            continue
+        stripped[key] = value
+    return stripped
+
+
+def resolve_download_url(url, headers, timeout=120, max_redirects=8):
     request_headers = {"User-Agent": headers.get("User-Agent", "wan-runpod-downloader/1.0")}
     request_headers.update(headers)
-    request = urllib.request.Request(url, headers=request_headers)
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return response.geturl()
+    opener = urllib.request.build_opener(NoRedirectHandler)
+    current_url = url
+
+    for _ in range(max_redirects):
+        request = urllib.request.Request(current_url, headers=request_headers)
+        try:
+            with opener.open(request, timeout=timeout) as response:
+                return response.geturl(), request_headers
+        except urllib.error.HTTPError as error:
+            if error.code not in REDIRECT_CODES:
+                raise
+            location = error.headers.get("Location")
+            if not location:
+                raise
+            next_url = urllib.parse.urljoin(current_url, location)
+            if urllib.parse.urlparse(next_url).netloc != urllib.parse.urlparse(current_url).netloc:
+                request_headers = strip_redirect_headers(request_headers)
+            current_url = next_url
+
+    raise RuntimeError(f"too many redirects while resolving {url}")
 
 
 def run_aria2(url, output, headers, connections, splits):
@@ -277,8 +311,8 @@ def download(entry, root, dry_run, use_aria2, connections, splits):
 
     try:
         if use_aria2 and entry.get("use_aria2", True) and shutil.which("aria2c"):
-            final_url = resolve_download_url(url, headers)
-            run_aria2(final_url, output, headers, connections, splits)
+            final_url, final_headers = resolve_download_url(url, headers)
+            run_aria2(final_url, output, final_headers, connections, splits)
         elif shutil.which("curl"):
             run_curl(url, output, headers)
         else:

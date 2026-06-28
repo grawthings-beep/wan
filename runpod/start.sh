@@ -15,6 +15,7 @@ DOWNLOAD_MODELS="${DOWNLOAD_MODELS:-0}"
 INSTALL_QWENVL_GGUF_DEPS="${INSTALL_QWENVL_GGUF_DEPS:-0}"
 INSTALL_SYSTEM_DEPS="${INSTALL_SYSTEM_DEPS:-1}"
 START_RUNPOD_SERVICES="${START_RUNPOD_SERVICES:-0}"
+UPGRADE_PIP="${UPGRADE_PIP:-0}"
 
 echo "Repo: ${REPO_DIR}"
 echo "Workspace: ${WORKSPACE_DIR}"
@@ -85,7 +86,9 @@ if [ -d "${COMFYUI_DIR}/.git" ] && [ "${UPDATE_COMFYUI:-0}" = "1" ]; then
   git -C "${COMFYUI_DIR}" pull --ff-only || true
 fi
 
-"${PYTHON_BIN}" -m pip install --upgrade pip
+if [ "${UPGRADE_PIP}" = "1" ]; then
+  "${PYTHON_BIN}" -m pip install --upgrade pip
+fi
 if [ "${INSTALL_COMFYUI_REQUIREMENTS:-0}" = "1" ] && [ -f "${COMFYUI_DIR}/requirements.txt" ]; then
   "${PYTHON_BIN}" -m pip install -r "${COMFYUI_DIR}/requirements.txt"
 fi
