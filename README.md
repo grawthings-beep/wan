@@ -34,6 +34,8 @@ ghcr.io/grawthings-beep/wan:cuda12.8
 
 Leave the Template start command blank and expose HTTP port `8188`.
 
+If RunPod cannot pull the image, make the GHCR package public or configure RunPod registry authentication for `ghcr.io`.
+
 The image is built by `.github/workflows/build-ghcr.yml` and pushed as:
 
 ```text

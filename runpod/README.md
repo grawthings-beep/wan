@@ -14,6 +14,14 @@ ghcr.io/grawthings-beep/wan:cuda12.8
 
 This avoids reinstalling ComfyUI custom nodes on every Pod start.
 
+If RunPod cannot pull the image, make the GHCR package public at:
+
+```text
+https://github.com/grawthings-beep/wan/pkgs/container/wan
+```
+
+or configure RunPod registry authentication for `ghcr.io` with a GitHub token that has `read:packages`.
+
 Expose ComfyUI port `8188`.
 
 ## Start ComfyUI

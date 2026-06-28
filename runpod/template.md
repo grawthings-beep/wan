@@ -35,6 +35,20 @@ CMD ["/opt/wan/runpod/start.sh"]
 
 If RunPod cannot pull the GHCR image, make the package public in GitHub Packages or add registry authentication.
 
+Current practical choices:
+
+1. Recommended: make the GHCR package public.
+   - Open `https://github.com/grawthings-beep/wan/pkgs/container/wan`
+   - Package settings
+   - Change visibility
+   - Public
+2. Private image: use `Select registry authentication` in the RunPod template.
+   - Registry: `ghcr.io`
+   - Username: `grawthings-beep`
+   - Password/token: a GitHub PAT with `read:packages`
+
+Without one of those, RunPod will fail before the container starts because GHCR denies anonymous pulls.
+
 ## Environment Variables
 
 | Name | Value |
