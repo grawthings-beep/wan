@@ -10,6 +10,10 @@ $requiredFiles = @(
     "manifests/custom_nodes.json",
     "manifests/models.json",
     "scripts/download-hf-models.ps1",
+    "scripts/download_hf_models.py",
+    "scripts/install_custom_nodes.py",
+    "runpod/start.sh",
+    "runpod/README.md",
     "workflows/WAN2.2-I2V-AutoPrompt-Story.json"
 )
 

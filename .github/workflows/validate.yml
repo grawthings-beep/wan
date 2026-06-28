@@ -24,6 +24,14 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-repo.ps1
 
+      - name: Check RunPod scripts
+        run: |
+          python -m py_compile scripts/download_hf_models.py scripts/install_custom_nodes.py
+          bash -n runpod/start.sh
+
       - name: Dry-run model download manifest
         shell: pwsh
         run: ./scripts/download-hf-models.ps1 -ComfyUIPath . -Profile gguf -DryRun
+
+      - name: Dry-run Python model download manifest
+        run: python scripts/download_hf_models.py --comfyui-path . --profile gguf --dry-run
