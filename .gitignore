@@ -26,6 +26,9 @@ temp/
 
 # Large model/checkpoint artifacts
 models/
+ComfyUI/
+custom_nodes/
+*.part
 *.safetensors
 *.ckpt
 *.pt

@@ -1,0 +1,23 @@
+{
+  "name": "wan-comfyui",
+  "type": "pod",
+  "recommended_image": "runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04",
+  "http_ports": "8188",
+  "tcp_ports": "",
+  "container_disk_gb": 80,
+  "volume_mount_path": "/workspace",
+  "recommended_volume_gb": 200,
+  "docker_command": "bash -lc 'command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends ca-certificates git && rm -rf /var/lib/apt/lists/*); cd /workspace && if [ ! -d wan ]; then git clone https://github.com/grawthings-beep/wan.git wan; else git -C wan pull --ff-only; fi && cd wan && bash runpod/start.sh'",
+  "environment": {
+    "MODEL_PROFILE": "gguf",
+    "DOWNLOAD_MODELS": "1",
+    "INSTALL_CUSTOM_NODES": "1",
+    "INSTALL_SYSTEM_DEPS": "1",
+    "INSTALL_QWENVL_GGUF_DEPS": "0",
+    "START_RUNPOD_SERVICES": "1",
+    "COMFYUI_DIR": "/workspace/ComfyUI",
+    "COMFYUI_HOST": "0.0.0.0",
+    "COMFYUI_PORT": "8188"
+  },
+  "manual_model_note": "Place Civitai Wan diffusion models in /workspace/ComfyUI/models/unet for GGUF or /workspace/ComfyUI/models/diffusion_models for FP8."
+}

@@ -11,10 +11,24 @@ COMFYUI_PORT="${COMFYUI_PORT:-8188}"
 INSTALL_CUSTOM_NODES="${INSTALL_CUSTOM_NODES:-1}"
 DOWNLOAD_MODELS="${DOWNLOAD_MODELS:-0}"
 INSTALL_QWENVL_GGUF_DEPS="${INSTALL_QWENVL_GGUF_DEPS:-0}"
+INSTALL_SYSTEM_DEPS="${INSTALL_SYSTEM_DEPS:-1}"
+START_RUNPOD_SERVICES="${START_RUNPOD_SERVICES:-0}"
 
 echo "Repo: ${REPO_DIR}"
 echo "ComfyUI: ${COMFYUI_DIR}"
 echo "Model profile: ${MODEL_PROFILE}"
+
+if [ "${START_RUNPOD_SERVICES}" = "1" ] && [ -x /start.sh ]; then
+  echo "Starting base RunPod services from /start.sh"
+  /start.sh &
+fi
+
+if [ "${INSTALL_SYSTEM_DEPS}" != "0" ] && command -v apt-get >/dev/null 2>&1; then
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update
+  apt-get install -y --no-install-recommends ca-certificates git ffmpeg libgl1 libglib2.0-0
+  rm -rf /var/lib/apt/lists/*
+fi
 
 if [ ! -d "${COMFYUI_DIR}/.git" ]; then
   git clone --depth 1 https://github.com/comfyanonymous/ComfyUI.git "${COMFYUI_DIR}"

@@ -14,6 +14,9 @@ $requiredFiles = @(
     "scripts/install_custom_nodes.py",
     "runpod/start.sh",
     "runpod/README.md",
+    "runpod/template.md",
+    "runpod/template.json",
+    "runpod/template.env.example",
     "workflows/WAN2.2-I2V-AutoPrompt-Story.json"
 )
 

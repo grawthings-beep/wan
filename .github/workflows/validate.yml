@@ -24,6 +24,9 @@ jobs:
         shell: pwsh
         run: ./scripts/validate-repo.ps1
 
+      - name: Validate RunPod template JSON
+        run: python -m json.tool runpod/template.json >/dev/null
+
       - name: Check RunPod scripts
         run: |
           python -m py_compile scripts/download_hf_models.py scripts/install_custom_nodes.py

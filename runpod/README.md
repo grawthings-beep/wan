@@ -2,6 +2,8 @@
 
 This repo is intended to bootstrap a RunPod GPU pod for ComfyUI generation with the bundled Wan 2.2 I2V workflow.
 
+For reusable RunPod template fields, use `runpod/template.md`.
+
 ## Pod Setup
 
 Use a RunPod GPU pod image that has CUDA, Python 3.10+, `git`, and `ffmpeg`. A RunPod PyTorch template is usually the fastest starting point.

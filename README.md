@@ -16,6 +16,9 @@ The original workflow and default model names are intended for adult/NSFW use. U
 - `manifests/models.json` - model filename, target folder, and source URL manifest.
 - `runpod/start.sh` - RunPod bootstrap script for ComfyUI, custom nodes, workflow placement, and launch.
 - `runpod/README.md` - RunPod usage guide.
+- `runpod/template.md` - exact RunPod Pod Template settings.
+- `runpod/template.json` - machine-readable copy of the template settings.
+- `runpod/template.env.example` - environment variables for the template.
 - `scripts/install_custom_nodes.py` - installs custom nodes from the manifest.
 - `scripts/download_hf_models.py` - cross-platform downloader for direct Hugging Face model URLs.
 - `scripts/download-hf-models.ps1` - optional helper for Hugging Face direct-download files.
@@ -36,6 +39,7 @@ Open the RunPod HTTP service for port `8188`.
 The script clones/updates ComfyUI in `/workspace/ComfyUI`, installs custom nodes from `manifests/custom_nodes.json`, copies the workflow into ComfyUI's user workflow folder, optionally downloads direct Hugging Face model URLs, and starts ComfyUI on `0.0.0.0:8188`.
 
 See `runpod/README.md` for model placement and environment variables.
+Use `runpod/template.md` when creating the RunPod Pod Template.
 
 ## Local ComfyUI Quick Start
 
