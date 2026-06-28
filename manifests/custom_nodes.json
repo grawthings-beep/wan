@@ -1,0 +1,99 @@
+{
+  "workflow": "workflows/WAN2.2-I2V-AutoPrompt-Story.json",
+  "custom_nodes": [
+    {
+      "name": "ComfyUI-GGUF",
+      "cnr_id": "ComfyUI-GGUF",
+      "repo": "https://github.com/city96/ComfyUI-GGUF.git",
+      "node_types": ["CLIPLoaderGGUF", "UnetLoaderGGUF"]
+    },
+    {
+      "name": "rgthree-comfy",
+      "cnr_id": "rgthree-comfy",
+      "repo": "https://github.com/rgthree/rgthree-comfy.git",
+      "node_types": ["Power Lora Loader (rgthree)", "Fast Groups Bypasser (rgthree)", "Seed (rgthree)"]
+    },
+    {
+      "name": "ComfyUI-VideoHelperSuite",
+      "cnr_id": "comfyui-videohelpersuite",
+      "repo": "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git",
+      "node_types": ["VHS_VideoCombine", "VHS_SelectImages"]
+    },
+    {
+      "name": "ComfyUI-KJNodes",
+      "cnr_id": "comfyui-kjnodes",
+      "repo": "https://github.com/kijai/ComfyUI-KJNodes.git",
+      "node_types": ["ColorMatch", "FloatConstant", "INTConstant", "ImageBatchMulti", "ModelPatchTorchSettings", "PathchSageAttentionKJ"]
+    },
+    {
+      "name": "ComfyUI-Easy-Use",
+      "cnr_id": "comfyui-easy-use",
+      "repo": "https://github.com/yolain/ComfyUI-Easy-Use.git",
+      "node_types": ["easy showAnything"]
+    },
+    {
+      "name": "ComfyUI-mxToolkit",
+      "cnr_id": "comfyui-mxtoolkit",
+      "repo": "https://github.com/Smirnov75/ComfyUI-mxToolkit.git",
+      "node_types": ["mxSlider"]
+    },
+    {
+      "name": "ComfyUI-Upscaler-Tensorrt",
+      "cnr_id": "ComfyUI-Upscaler-Tensorrt",
+      "repo": "https://github.com/yuvraj108c/ComfyUI-Upscaler-Tensorrt.git",
+      "node_types": ["LoadUpscalerTensorrtModel", "UpscalerTensorrt"]
+    },
+    {
+      "name": "ComfyUI_Selectors",
+      "repo": "https://github.com/ComfyAssets/ComfyUI_Selectors.git",
+      "node_types": ["SamplerSelector", "SchedulerSelector"]
+    },
+    {
+      "name": "ComfyUI-VFI",
+      "repo": "https://github.com/GACLove/ComfyUI-VFI.git",
+      "node_types": ["RIFEInterpolation"]
+    },
+    {
+      "name": "comfyui-find-perfect-resolution",
+      "repo": "https://github.com/ashtar1984/comfyui-find-perfect-resolution.git",
+      "node_types": ["FindPerfectResolution"]
+    },
+    {
+      "name": "ComfyUI-QwenVL-Mod",
+      "repo": "https://github.com/huchukato/ComfyUI-QwenVL-Mod.git",
+      "node_types": ["AILab_QwenVL_Advanced", "AILab_QwenVL_GGUF_Advanced", "StorySplitNode", "VRAMCleanup"]
+    },
+    {
+      "name": "ComfyUI-RIFE-TensorRT-Auto",
+      "repo": "https://github.com/huchukato/ComfyUI-RIFE-TensorRT-Auto.git",
+      "node_types": ["AutoLoadRifeTensorrtModel", "AutoRifeTensorrt"]
+    },
+    {
+      "name": "ComfyUI-MMAudio",
+      "cnr_id": "comfyui-mmaudio",
+      "repo": "https://github.com/kijai/ComfyUI-MMAudio.git",
+      "node_types": ["MMAudioFeatureUtilsLoader", "MMAudioModelLoader", "MMAudioSampler"]
+    },
+    {
+      "name": "WAS Node Suite",
+      "cnr_id": "was-ns",
+      "repo": "https://github.com/ltdrdata/was-node-suite-comfyui.git",
+      "node_types": ["Text Concatenate"]
+    },
+    {
+      "name": "ComfyUI-PainterI2V",
+      "repo": "https://github.com/princepainter/ComfyUI-PainterI2V.git",
+      "node_types": ["PainterI2V"]
+    },
+    {
+      "name": "ComfyUI-PainterLongVideo",
+      "repo": "https://github.com/princepainter/ComfyUI-PainterLongVideo.git",
+      "node_types": ["PainterLongVideo"]
+    },
+    {
+      "name": "ComfyUI-WanMoeKSampler",
+      "repo": "https://github.com/stduhpf/ComfyUI-WanMoeKSampler.git",
+      "node_types": ["WanMoeKSamplerAdvanced"]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+__MACOSX/
+.vscode/
+.idea/
+
+# Generated ComfyUI media and temporary files
+input/
+output/
+outputs/
+temp/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.wav
+*.flac
+*.mp3
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Large model/checkpoint artifacts
+models/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.gguf
+*.onnx
+*.engine
+*.pkl
+
+# Python/runtime artifacts
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/

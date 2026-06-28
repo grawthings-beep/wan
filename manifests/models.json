@@ -1,0 +1,167 @@
+{
+  "workflow": "workflows/WAN2.2-I2V-AutoPrompt-Story.json",
+  "notes": [
+    "Model weights are not included in this repository.",
+    "Civitai entries may require manual download or authentication.",
+    "If a custom node cannot find a file, check that node's current model folder documentation."
+  ],
+  "models": [
+    {
+      "filename": "wan22EnhancedNSFWSVICamera_nsfwV2Q8High.gguf",
+      "type": "wan_diffusion_gguf_high",
+      "target_path": "models/unet",
+      "profiles": ["gguf"],
+      "source_url": "https://civitai.com/models/2053259?modelVersionId=2584698",
+      "downloadable": false,
+      "notes": "Default GGUF high-noise model referenced by the workflow."
+    },
+    {
+      "filename": "wan22EnhancedNSFWSVICamera_nsfwV2Q8Low.gguf",
+      "type": "wan_diffusion_gguf_low",
+      "target_path": "models/unet",
+      "profiles": ["gguf"],
+      "source_url": "https://civitai.com/models/2053259?modelVersionId=2584707",
+      "downloadable": false,
+      "notes": "Default GGUF low-noise model referenced by the workflow."
+    },
+    {
+      "filename": "wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors",
+      "type": "wan_diffusion_fp8_high",
+      "target_path": "models/diffusion_models",
+      "profiles": ["fp8"],
+      "source_url": "https://civitai.com/models/2053259?modelVersionId=2477552",
+      "downloadable": false,
+      "notes": "Default FP8 high-noise model referenced by the workflow."
+    },
+    {
+      "filename": "wan22EnhancedNSFWSVICamera_nsfwV2FP8L.safetensors",
+      "type": "wan_diffusion_fp8_low",
+      "target_path": "models/diffusion_models",
+      "profiles": ["fp8"],
+      "source_url": "https://civitai.com/models/2053259?modelVersionId=2477555",
+      "downloadable": false,
+      "notes": "Default FP8 low-noise model referenced by the workflow."
+    },
+    {
+      "filename": "umt5-xxl-encoder-Q8_0.gguf",
+      "type": "text_encoder_gguf",
+      "target_path": "models/text_encoders",
+      "profiles": ["gguf"],
+      "source_url": "https://huggingface.co/city96/umt5-xxl-encoder-gguf/resolve/main/umt5-xxl-encoder-Q8_0.gguf",
+      "downloadable": true
+    },
+    {
+      "filename": "umt5-xxl-encoder-Q6_K.gguf",
+      "type": "text_encoder_gguf",
+      "target_path": "models/text_encoders",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/city96/umt5-xxl-encoder-gguf/resolve/main/umt5-xxl-encoder-Q6_K.gguf",
+      "downloadable": true
+    },
+    {
+      "filename": "nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+      "type": "text_encoder_fp8",
+      "target_path": "models/text_encoders",
+      "profiles": ["fp8"],
+      "source_url": "https://huggingface.co/NSFW-API/NSFW-Wan-UMT5-XXL/resolve/main/nsfw_wan_umt5-xxl_fp8_scaled.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "nsfw_wan_umt5-xxl_bf16.safetensors",
+      "type": "text_encoder_bf16",
+      "target_path": "models/text_encoders",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/NSFW-API/NSFW-Wan-UMT5-XXL/resolve/main/nsfw_wan_umt5-xxl_bf16.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "text_encoder_fp8",
+      "target_path": "models/text_encoders",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "umt5_xxl_fp16.safetensors",
+      "type": "text_encoder_fp16",
+      "target_path": "models/text_encoders",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "wan_2.1_vae.safetensors",
+      "type": "vae",
+      "target_path": "models/vae",
+      "profiles": ["base", "gguf", "fp8"],
+      "source_url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "Wan2_1_VAE_fp32.safetensors",
+      "type": "vae",
+      "target_path": "models/vae",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1_VAE_fp32.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "2xLexicaRRDBNet.pth",
+      "type": "upscale_model",
+      "target_path": "models/upscale_models",
+      "profiles": ["base", "gguf", "fp8"],
+      "source_url": "https://huggingface.co/huchukato/favs/resolve/main/ESRGAN/2xLexicaRRDBNet.pth",
+      "downloadable": true
+    },
+    {
+      "filename": "2xLexicaRRDBNet_Sharp.pth",
+      "type": "upscale_model",
+      "target_path": "models/upscale_models",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/huchukato/favs/resolve/main/ESRGAN/2xLexicaRRDBNet_Sharp.pth",
+      "downloadable": true
+    },
+    {
+      "filename": "mmaudio_large_44k_nsfw_gold_8.5k_final_fp16.safetensors",
+      "type": "mmaudio_model",
+      "target_path": "models/mmaudio",
+      "profiles": ["mmaudio"],
+      "source_url": "https://huggingface.co/phazei/NSFW_MMaudio/resolve/main/mmaudio_large_44k_nsfw_gold_8.5k_final_fp16.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "mmaudio_vae_44k_fp16.safetensors",
+      "type": "mmaudio_vae",
+      "target_path": "models/mmaudio",
+      "profiles": ["mmaudio"],
+      "source_url": "https://huggingface.co/Kijai/MMAudio_safetensors/resolve/5984623e6b436818c6ff287ef6eec93e3e05aa3f/mmaudio_vae_44k_fp16.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "mmaudio_synchformer_fp16.safetensors",
+      "type": "mmaudio_synchformer",
+      "target_path": "models/mmaudio",
+      "profiles": ["mmaudio"],
+      "source_url": "https://huggingface.co/Kijai/MMAudio_safetensors/resolve/main/mmaudio_synchformer_fp16.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
+      "type": "mmaudio_clip",
+      "target_path": "models/mmaudio",
+      "profiles": ["mmaudio"],
+      "source_url": "https://huggingface.co/Kijai/MMAudio_safetensors/resolve/main/apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
+      "downloadable": true
+    },
+    {
+      "filename": "flownet.pkl",
+      "type": "rife_vfi",
+      "target_path": "custom-node-specific",
+      "profiles": ["optional"],
+      "source_url": null,
+      "downloadable": false,
+      "notes": "Referenced by the VFI RIFE node. Let ComfyUI-VFI download it or follow that repository's model instructions."
+    }
+  ]
+}
