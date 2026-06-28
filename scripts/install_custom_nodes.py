@@ -25,7 +25,8 @@ def repo_dir_name(repo_url):
 
 def main():
     parser = argparse.ArgumentParser(description="Install ComfyUI custom nodes from manifests/custom_nodes.json.")
-    parser.add_argument("--comfyui-path", required=True, help="Path to the ComfyUI installation.")
+    parser.add_argument("--comfyui-path", help="Path to the ComfyUI installation.")
+    parser.add_argument("--custom-nodes-dir", help="Install directly into this custom_nodes directory.")
     parser.add_argument("--manifest", default="manifests/custom_nodes.json", help="Path to custom_nodes.json.")
     parser.add_argument("--dry-run", action="store_true", help="Print actions without installing.")
     parser.add_argument("--skip-requirements", action="store_true", help="Do not pip install custom node requirements.")
@@ -36,8 +37,14 @@ def main():
     if not manifest_path.is_absolute():
         manifest_path = repo_root / manifest_path
 
-    comfyui_path = Path(args.comfyui_path).resolve()
-    custom_nodes_dir = comfyui_path / "custom_nodes"
+    if args.custom_nodes_dir:
+        custom_nodes_dir = Path(args.custom_nodes_dir).resolve()
+    elif args.comfyui_path:
+        comfyui_path = Path(args.comfyui_path).resolve()
+        custom_nodes_dir = comfyui_path / "custom_nodes"
+    else:
+        parser.error("one of --comfyui-path or --custom-nodes-dir is required")
+
     if not args.dry_run:
         custom_nodes_dir.mkdir(parents=True, exist_ok=True)
 

@@ -42,6 +42,7 @@ If RunPod cannot pull the GHCR image, make the package public in GitHub Packages
 | `MODEL_PROFILE` | `gguf` |
 | `DOWNLOAD_MODELS` | `1` |
 | `INSTALL_CUSTOM_NODES` | `0` |
+| `USE_BAKED_CUSTOM_NODES` | `1` |
 | `INSTALL_SYSTEM_DEPS` | `0` |
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` |
 | `START_RUNPOD_SERVICES` | `0` |
@@ -52,6 +53,8 @@ If RunPod cannot pull the GHCR image, make the package public in GitHub Packages
 | `COMFYUI_ARGS` | `--reserve-vram 3` |
 
 Keep `INSTALL_QWENVL_GGUF_DEPS=0` for the default template. Turn it on only if you specifically need the QwenVL GGUF path and are ready for a slower first boot because it builds a custom `llama-cpp-python`.
+
+Keep `INSTALL_CUSTOM_NODES=0` for speed. The image already bakes the custom nodes into `/opt/wan/custom_nodes`; startup copies them into the detected ComfyUI directory.
 
 ## Model Storage
 

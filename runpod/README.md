@@ -38,6 +38,7 @@ Then open the RunPod HTTP service for port `8188`.
 | `MODEL_PROFILE` | `gguf` | Model manifest profile: `gguf`, `fp8`, `mmaudio`, `optional`, or `all`. |
 | `DOWNLOAD_MODELS` | `0` | Set to `1` to download direct Hugging Face model URLs. |
 | `INSTALL_CUSTOM_NODES` | `0` in the GHCR image | Set to `1` only when using a raw base image. |
+| `USE_BAKED_CUSTOM_NODES` | `1` | Copy baked custom nodes from the image into ComfyUI at startup. |
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` | Set to `1` to install the QwenVL GGUF `llama-cpp-python` fork. |
 | `COMFYUI_ARGS` | empty | Extra args passed to `main.py`. |
 

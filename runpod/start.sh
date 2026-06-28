@@ -49,6 +49,12 @@ find_comfyui_dir() {
     fi
   done
 
+  found_main="$(find /opt /workspace /app /comfyui /ComfyUI -maxdepth 5 -type f -name main.py 2>/dev/null | head -n 1 || true)"
+  if [ -n "${found_main}" ]; then
+    dirname "${found_main}"
+    return 0
+  fi
+
   return 1
 }
 
@@ -82,6 +88,12 @@ fi
 "${PYTHON_BIN}" -m pip install --upgrade pip
 if [ "${INSTALL_COMFYUI_REQUIREMENTS:-0}" = "1" ] && [ -f "${COMFYUI_DIR}/requirements.txt" ]; then
   "${PYTHON_BIN}" -m pip install -r "${COMFYUI_DIR}/requirements.txt"
+fi
+
+if [ "${USE_BAKED_CUSTOM_NODES:-1}" = "1" ] && [ -d "${REPO_DIR}/custom_nodes" ]; then
+  echo "Copying baked custom nodes into ${COMFYUI_DIR}/custom_nodes"
+  mkdir -p "${COMFYUI_DIR}/custom_nodes"
+  cp -a "${REPO_DIR}/custom_nodes/." "${COMFYUI_DIR}/custom_nodes/"
 fi
 
 if [ "${INSTALL_CUSTOM_NODES}" != "0" ]; then
