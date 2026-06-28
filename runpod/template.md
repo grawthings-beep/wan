@@ -8,12 +8,12 @@ Create a Pod template in RunPod with the settings below.
 | --- | --- |
 | Template name | `wan-comfyui` |
 | Template type | Pod |
-| Docker image | `runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04` |
-| Container disk | `80 GB` minimum, `120 GB` safer |
+| Docker image | `ghcr.io/grawthings-beep/wan:cuda12.8` |
+| Container disk | `40 GB` minimum, `80 GB` safer |
 | Volume mount path | `/workspace` |
 | Network volume | `200 GB` or larger if keeping models |
 
-The image is intentionally pinned to Python 3.11, CUDA 12.8.1, and PyTorch 2.8.0 because ComfyUI and video/custom-node dependencies are more predictable on Python 3.11 than on newer Python runtimes.
+This GHCR image is built by GitHub Actions from this repository. It bakes ComfyUI startup glue, the workflow, and custom nodes into the image so a Pod does not reinstall everything on each start.
 
 ## Exposed Ports
 
@@ -23,15 +23,17 @@ The image is intentionally pinned to Python 3.11, CUDA 12.8.1, and PyTorch 2.8.0
 
 ComfyUI starts on `0.0.0.0:8188`, so RunPod's HTTP service for port `8188` opens the UI.
 
-## Docker Command
+## Docker Command / Start Command
 
-Use this as the template start command:
+Leave this blank.
 
-```bash
-bash -lc 'command -v git >/dev/null 2>&1 || (apt-get update && apt-get install -y --no-install-recommends ca-certificates git && rm -rf /var/lib/apt/lists/*); cd /workspace && if [ ! -d wan ]; then git clone https://github.com/grawthings-beep/wan.git wan; else git -C wan pull --ff-only; fi && cd wan && bash runpod/start.sh'
+The image already has:
+
+```text
+CMD ["/opt/wan/runpod/start.sh"]
 ```
 
-This command keeps the template generic: every pod pulls the latest `main` from this repo, then starts ComfyUI through `runpod/start.sh`.
+If RunPod cannot pull the GHCR image, make the package public in GitHub Packages or add registry authentication.
 
 ## Environment Variables
 
@@ -39,13 +41,15 @@ This command keeps the template generic: every pod pulls the latest `main` from 
 | --- | --- |
 | `MODEL_PROFILE` | `gguf` |
 | `DOWNLOAD_MODELS` | `1` |
-| `INSTALL_CUSTOM_NODES` | `1` |
-| `INSTALL_SYSTEM_DEPS` | `1` |
+| `INSTALL_CUSTOM_NODES` | `0` |
+| `INSTALL_SYSTEM_DEPS` | `0` |
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` |
-| `START_RUNPOD_SERVICES` | `1` |
-| `COMFYUI_DIR` | `/workspace/ComfyUI` |
-| `COMFYUI_HOST` | `0.0.0.0` |
-| `COMFYUI_PORT` | `8188` |
+| `START_RUNPOD_SERVICES` | `0` |
+| `WORKSPACE_DIR` | `/workspace/comfyui` |
+| `MODEL_ROOT` | `/workspace/comfyui` |
+| `LISTEN` | `0.0.0.0` |
+| `PORT` | `8188` |
+| `COMFYUI_ARGS` | `--reserve-vram 3` |
 
 Keep `INSTALL_QWENVL_GGUF_DEPS=0` for the default template. Turn it on only if you specifically need the QwenVL GGUF path and are ready for a slower first boot because it builds a custom `llama-cpp-python`.
 
@@ -56,7 +60,7 @@ The template can download direct Hugging Face URLs from `manifests/models.json`,
 For GGUF, place these in:
 
 ```text
-/workspace/ComfyUI/models/unet
+/workspace/comfyui/models/unet
 ```
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8High.gguf`
@@ -65,7 +69,7 @@ For GGUF, place these in:
 For FP8, place these in:
 
 ```text
-/workspace/ComfyUI/models/diffusion_models
+/workspace/comfyui/models/diffusion_models
 ```
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors`

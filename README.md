@@ -2,7 +2,7 @@
 
 Wan 2.2 image-to-video story workflow for ComfyUI, with FP8/GGUF model paths, Qwen3-VL autoprompt subgraphs, optional MMAudio, upscaling, color matching, and RIFE interpolation.
 
-This repo is set up for launching ComfyUI on RunPod and generating with the bundled workflow. It stays lightweight: model weights, generated videos, and local ComfyUI outputs are intentionally not included.
+This repo is set up for launching ComfyUI on RunPod and generating with the bundled workflow. GitHub Actions builds a reusable GHCR image so Pod startup does not reinstall ComfyUI custom nodes every time.
 
 ## Content Notice
 
@@ -19,13 +19,29 @@ The original workflow and default model names are intended for adult/NSFW use. U
 - `runpod/template.md` - exact RunPod Pod Template settings.
 - `runpod/template.json` - machine-readable copy of the template settings.
 - `runpod/template.env.example` - environment variables for the template.
+- `Dockerfile` - builds the RunPod/ComfyUI image published to GHCR.
 - `scripts/install_custom_nodes.py` - installs custom nodes from the manifest.
 - `scripts/download_hf_models.py` - cross-platform downloader for direct Hugging Face model URLs.
 - `scripts/download-hf-models.ps1` - optional helper for Hugging Face direct-download files.
 
 ## RunPod Quick Start
 
-From a RunPod GPU pod terminal:
+Use this image in the RunPod Template:
+
+```text
+ghcr.io/grawthings-beep/wan:cuda12.8
+```
+
+Leave the Template start command blank and expose HTTP port `8188`.
+
+The image is built by `.github/workflows/build-ghcr.yml` and pushed as:
+
+```text
+ghcr.io/grawthings-beep/wan:cuda12.8
+ghcr.io/grawthings-beep/wan:latest
+```
+
+Manual fallback from a generic GPU pod terminal:
 
 ```bash
 cd /workspace

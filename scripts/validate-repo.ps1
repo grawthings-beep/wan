@@ -6,6 +6,9 @@ Set-Location -LiteralPath $repoRoot
 $requiredFiles = @(
     "README.md",
     "NOTICE.md",
+    ".dockerignore",
+    "Dockerfile",
+    ".github/workflows/build-ghcr.yml",
     "docs/dependencies.md",
     "manifests/custom_nodes.json",
     "manifests/models.json",

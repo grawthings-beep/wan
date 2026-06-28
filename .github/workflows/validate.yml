@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Validate repository files
         shell: pwsh
@@ -31,6 +31,8 @@ jobs:
         run: |
           python -m py_compile scripts/download_hf_models.py scripts/install_custom_nodes.py
           bash -n runpod/start.sh
+          test -f Dockerfile
+          test -f .dockerignore
 
       - name: Dry-run model download manifest
         shell: pwsh

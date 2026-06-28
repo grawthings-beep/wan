@@ -49,7 +49,8 @@ def download_file(url, destination, dry_run):
 
 def main():
     parser = argparse.ArgumentParser(description="Download direct Hugging Face model URLs from manifests/models.json.")
-    parser.add_argument("--comfyui-path", required=True, help="Path to the ComfyUI installation.")
+    parser.add_argument("--comfyui-path", help="Path to the ComfyUI installation. Kept for backward compatibility.")
+    parser.add_argument("--root", help="Root directory that contains the ComfyUI-style models/ folders.")
     parser.add_argument("--manifest", default="manifests/models.json", help="Path to models.json.")
     parser.add_argument("--profile", default="gguf", choices=["gguf", "fp8", "mmaudio", "optional", "all"])
     parser.add_argument("--dry-run", action="store_true", help="Print actions without downloading.")
@@ -60,7 +61,13 @@ def main():
     if not manifest_path.is_absolute():
         manifest_path = repo_root / manifest_path
 
-    comfyui_path = Path(args.comfyui_path).resolve()
+    if args.root:
+        model_root = Path(args.root).resolve()
+    elif args.comfyui_path:
+        model_root = Path(args.comfyui_path).resolve()
+    else:
+        parser.error("one of --root or --comfyui-path is required")
+
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
     selected = [model for model in manifest["models"] if profile_matches(model, args.profile)]
@@ -73,7 +80,7 @@ def main():
             manual.append(model)
             continue
 
-        destination = comfyui_path / target_path / model["filename"]
+        destination = model_root / target_path / model["filename"]
         if destination.exists():
             print(f"Exists: {destination}")
             continue

@@ -6,7 +6,13 @@ For reusable RunPod template fields, use `runpod/template.md`.
 
 ## Pod Setup
 
-Use a RunPod GPU pod image that has CUDA, Python 3.10+, `git`, and `ffmpeg`. A RunPod PyTorch template is usually the fastest starting point.
+Use the GHCR image built from this repo:
+
+```text
+ghcr.io/grawthings-beep/wan:cuda12.8
+```
+
+This avoids reinstalling ComfyUI custom nodes on every Pod start.
 
 Expose ComfyUI port `8188`.
 
@@ -27,10 +33,11 @@ Then open the RunPod HTTP service for port `8188`.
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `COMFYUI_DIR` | `/workspace/ComfyUI` | Where ComfyUI is cloned/updated. |
+| `WORKSPACE_DIR` | `/workspace/comfyui` | Persistent input/output root. |
+| `MODEL_ROOT` | `/workspace/comfyui` | Persistent ComfyUI model root. |
 | `MODEL_PROFILE` | `gguf` | Model manifest profile: `gguf`, `fp8`, `mmaudio`, `optional`, or `all`. |
 | `DOWNLOAD_MODELS` | `0` | Set to `1` to download direct Hugging Face model URLs. |
-| `INSTALL_CUSTOM_NODES` | `1` | Set to `0` to skip custom node install/update. |
+| `INSTALL_CUSTOM_NODES` | `0` in the GHCR image | Set to `1` only when using a raw base image. |
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` | Set to `1` to install the QwenVL GGUF `llama-cpp-python` fork. |
 | `COMFYUI_ARGS` | empty | Extra args passed to `main.py`. |
 
@@ -38,12 +45,12 @@ Then open the RunPod HTTP service for port `8188`.
 
 The default Wan diffusion models in this workflow point to Civitai pages. Those usually need manual download or auth handling, so the bootstrap script does not fetch them automatically.
 
-For the default GGUF path, place these files under `/workspace/ComfyUI/models/unet` unless your installed `ComfyUI-GGUF` version documents a different folder:
+For the default GGUF path, place these files under `/workspace/comfyui/models/unet` unless your installed `ComfyUI-GGUF` version documents a different folder:
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8High.gguf`
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8Low.gguf`
 
-For the default FP8 path, place these under `/workspace/ComfyUI/models/diffusion_models`:
+For the default FP8 path, place these under `/workspace/comfyui/models/diffusion_models`:
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors`
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8L.safetensors`
@@ -73,7 +80,7 @@ workflows/WAN2.2-I2V-AutoPrompt-Story.json
 to:
 
 ```text
-/workspace/ComfyUI/user/default/workflows/WAN2.2-I2V-AutoPrompt-Story.json
+ComfyUI's user workflow folder inside the image.
 ```
 
 If ComfyUI does not show it automatically, load the JSON manually from the repo checkout.
