@@ -44,22 +44,27 @@ Then open the RunPod HTTP service for port `8188`.
 | `WORKSPACE_DIR` | `/workspace/comfyui` | Persistent input/output root. |
 | `MODEL_ROOT` | `/workspace/comfyui` | Persistent ComfyUI model root. |
 | `MODEL_PROFILE` | `gguf` | Model manifest profile: `gguf`, `fp8`, `mmaudio`, `optional`, or `all`. |
-| `DOWNLOAD_MODELS` | `0` | Set to `1` to download direct Hugging Face model URLs. |
+| `DOWNLOAD_MODELS` | `0` | Set to `1` to download Hugging Face and Civitai model URLs. |
+| `MODEL_DOWNLOAD_JOBS` | `4` | Number of model files to download in parallel. |
+| `ARIA2_CONNECTIONS` | `16` | Connections per file when `aria2c` is available. |
+| `ARIA2_SPLITS` | `16` | Splits per file when `aria2c` is available. |
 | `INSTALL_CUSTOM_NODES` | `0` in the GHCR image | Set to `1` only when using a raw base image. |
 | `USE_BAKED_CUSTOM_NODES` | `1` | Copy baked custom nodes from the image into ComfyUI at startup. |
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` | Set to `1` to install the QwenVL GGUF `llama-cpp-python` fork. |
+| `CIVITAI_TOKEN` | unset | Required for the default Civitai Wan model downloads. Use a RunPod Secret. |
+| `HF_TOKEN` | unset | Optional for Hugging Face gated/private files. Use a RunPod Secret. |
 | `COMFYUI_ARGS` | empty | Extra args passed to `main.py`. |
 
 ## Civitai Models
 
-The default Wan diffusion models in this workflow point to Civitai pages. Those usually need manual download or auth handling, so the bootstrap script does not fetch them automatically.
+The default Wan diffusion models in this workflow point to Civitai model versions. The startup script downloads them automatically through the Civitai API when `CIVITAI_TOKEN` is set.
 
-For the default GGUF path, place these files under `/workspace/comfyui/models/unet` unless your installed `ComfyUI-GGUF` version documents a different folder:
+For the default GGUF path, files are downloaded under `/workspace/comfyui/models/unet` unless your installed `ComfyUI-GGUF` version documents a different folder:
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8High.gguf`
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8Low.gguf`
 
-For the default FP8 path, place these under `/workspace/comfyui/models/diffusion_models`:
+For the default FP8 path, files are downloaded under `/workspace/comfyui/models/diffusion_models`:
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors`
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8L.safetensors`
@@ -72,7 +77,7 @@ To include the MMAudio direct-download files:
 MODEL_PROFILE=mmaudio DOWNLOAD_MODELS=1 bash runpod/start.sh
 ```
 
-You can also download all direct Hugging Face files:
+You can also download every manifest entry, including Civitai files when `CIVITAI_TOKEN` is set:
 
 ```bash
 MODEL_PROFILE=all DOWNLOAD_MODELS=1 bash runpod/start.sh

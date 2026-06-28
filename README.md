@@ -21,8 +21,8 @@ The original workflow and default model names are intended for adult/NSFW use. U
 - `runpod/template.env.example` - environment variables for the template.
 - `Dockerfile` - builds the RunPod/ComfyUI image published to GHCR.
 - `scripts/install_custom_nodes.py` - installs custom nodes from the manifest.
-- `scripts/download_hf_models.py` - cross-platform downloader for direct Hugging Face model URLs.
-- `scripts/download-hf-models.ps1` - optional helper for Hugging Face direct-download files.
+- `scripts/download_hf_models.py` - fast cross-platform downloader for Hugging Face and Civitai model URLs.
+- `scripts/download-hf-models.ps1` - optional Windows helper for manifest model downloads.
 
 ## RunPod Quick Start
 
@@ -35,6 +35,18 @@ ghcr.io/grawthings-beep/wan:cuda12.8
 Leave the Template start command blank and expose HTTP port `8188`.
 
 If RunPod cannot pull the image, make the GHCR package public or configure RunPod registry authentication for `ghcr.io`.
+
+Set these RunPod secrets/environment variables for model downloads:
+
+```text
+CIVITAI_TOKEN={{ RUNPOD_SECRET_CIVITAI_TOKEN }}
+HF_TOKEN={{ RUNPOD_SECRET_HF_TOKEN }}
+MODEL_DOWNLOAD_JOBS=4
+ARIA2_CONNECTIONS=16
+ARIA2_SPLITS=16
+```
+
+The default Civitai Wan GGUF/FP8 model files are downloaded automatically when `CIVITAI_TOKEN` is configured.
 
 The image is built by `.github/workflows/build-ghcr.yml` and pushed as:
 
@@ -54,7 +66,7 @@ MODEL_PROFILE=gguf DOWNLOAD_MODELS=1 bash runpod/start.sh
 
 Open the RunPod HTTP service for port `8188`.
 
-The script clones/updates ComfyUI in `/workspace/ComfyUI`, installs custom nodes from `manifests/custom_nodes.json`, copies the workflow into ComfyUI's user workflow folder, optionally downloads direct Hugging Face model URLs, and starts ComfyUI on `0.0.0.0:8188`.
+The script clones/updates ComfyUI in `/workspace/ComfyUI`, installs custom nodes from `manifests/custom_nodes.json`, copies the workflow into ComfyUI's user workflow folder, optionally downloads Hugging Face and Civitai model URLs, and starts ComfyUI on `0.0.0.0:8188`.
 
 See `runpod/README.md` for model placement and environment variables.
 Use `runpod/template.md` when creating the RunPod Pod Template.
@@ -67,19 +79,19 @@ Use `runpod/template.md` when creating the RunPod Pod Template.
 4. Open ComfyUI and load `workflows/WAN2.2-I2V-AutoPrompt-Story.json`.
 5. Select the FP8 or GGUF path in the `FP8 / GGUF` group, then choose the target duration group.
 
-For the Hugging Face files that have direct URLs, you can use:
+For local/manual model download, use the Python downloader:
+
+```bash
+CIVITAI_TOKEN=... python scripts/download_hf_models.py --comfyui-path /workspace/ComfyUI --profile gguf
+```
+
+It downloads several files in parallel and uses `aria2c` when available. The PowerShell helper is kept as a Windows convenience:
 
 ```powershell
 pwsh .\scripts\download-hf-models.ps1 -ComfyUIPath "C:\path\to\ComfyUI" -Profile gguf
 ```
 
-or:
-
-```bash
-python scripts/download_hf_models.py --comfyui-path /workspace/ComfyUI --profile gguf
-```
-
-The Civitai diffusion models usually require manual download or account/auth handling, so the helper script lists them but does not download them.
+The default Civitai diffusion models require `CIVITAI_TOKEN`; without it, the downloader exits early instead of saving an HTML login/error page as a model file.
 
 ## Workflow Defaults
 

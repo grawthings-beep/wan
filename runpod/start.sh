@@ -136,6 +136,7 @@ workspace:
   unet: models/unet/
   upscale_models: models/upscale_models/
   vae: models/vae/
+  mmaudio: models/mmaudio/
 YAML
 
 COMFYUI_WORKFLOW_DIR="${COMFYUI_WORKFLOW_DIR:-${COMFYUI_DIR}/user/default/workflows}"

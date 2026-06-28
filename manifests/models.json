@@ -2,7 +2,7 @@
   "workflow": "workflows/WAN2.2-I2V-AutoPrompt-Story.json",
   "notes": [
     "Model weights are not included in this repository.",
-    "Civitai entries may require manual download or authentication.",
+    "Civitai entries download through https://civitai.com/api/download/models/{modelVersionId} and require CIVITAI_TOKEN on RunPod.",
     "If a custom node cannot find a file, check that node's current model folder documentation."
   ],
   "models": [
@@ -12,7 +12,13 @@
       "target_path": "models/unet",
       "profiles": ["gguf"],
       "source_url": "https://civitai.com/models/2053259?modelVersionId=2584698",
-      "downloadable": false,
+      "model_version_id": 2584698,
+      "provider": "civitai",
+      "token_env": "CIVITAI_TOKEN",
+      "requires_env": ["CIVITAI_TOKEN"],
+      "downloadable": true,
+      "required": true,
+      "min_bytes": 1048576,
       "notes": "Default GGUF high-noise model referenced by the workflow."
     },
     {
@@ -21,7 +27,13 @@
       "target_path": "models/unet",
       "profiles": ["gguf"],
       "source_url": "https://civitai.com/models/2053259?modelVersionId=2584707",
-      "downloadable": false,
+      "model_version_id": 2584707,
+      "provider": "civitai",
+      "token_env": "CIVITAI_TOKEN",
+      "requires_env": ["CIVITAI_TOKEN"],
+      "downloadable": true,
+      "required": true,
+      "min_bytes": 1048576,
       "notes": "Default GGUF low-noise model referenced by the workflow."
     },
     {
@@ -30,7 +42,13 @@
       "target_path": "models/diffusion_models",
       "profiles": ["fp8"],
       "source_url": "https://civitai.com/models/2053259?modelVersionId=2477552",
-      "downloadable": false,
+      "model_version_id": 2477552,
+      "provider": "civitai",
+      "token_env": "CIVITAI_TOKEN",
+      "requires_env": ["CIVITAI_TOKEN"],
+      "downloadable": true,
+      "required": true,
+      "min_bytes": 1048576,
       "notes": "Default FP8 high-noise model referenced by the workflow."
     },
     {
@@ -39,7 +57,13 @@
       "target_path": "models/diffusion_models",
       "profiles": ["fp8"],
       "source_url": "https://civitai.com/models/2053259?modelVersionId=2477555",
-      "downloadable": false,
+      "model_version_id": 2477555,
+      "provider": "civitai",
+      "token_env": "CIVITAI_TOKEN",
+      "requires_env": ["CIVITAI_TOKEN"],
+      "downloadable": true,
+      "required": true,
+      "min_bytes": 1048576,
       "notes": "Default FP8 low-noise model referenced by the workflow."
     },
     {

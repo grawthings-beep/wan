@@ -55,6 +55,9 @@ Without one of those, RunPod will fail before the container starts because GHCR 
 | --- | --- |
 | `MODEL_PROFILE` | `gguf` |
 | `DOWNLOAD_MODELS` | `1` |
+| `MODEL_DOWNLOAD_JOBS` | `4` |
+| `ARIA2_CONNECTIONS` | `16` |
+| `ARIA2_SPLITS` | `16` |
 | `INSTALL_CUSTOM_NODES` | `0` |
 | `USE_BAKED_CUSTOM_NODES` | `1` |
 | `INSTALL_SYSTEM_DEPS` | `0` |
@@ -65,6 +68,8 @@ Without one of those, RunPod will fail before the container starts because GHCR 
 | `LISTEN` | `0.0.0.0` |
 | `PORT` | `8188` |
 | `COMFYUI_ARGS` | `--reserve-vram 3` |
+| `CIVITAI_TOKEN` | `{{ RUNPOD_SECRET_CIVITAI_TOKEN }}` |
+| `HF_TOKEN` | `{{ RUNPOD_SECRET_HF_TOKEN }}` |
 
 Keep `INSTALL_QWENVL_GGUF_DEPS=0` for the default template. Turn it on only if you specifically need the QwenVL GGUF path and are ready for a slower first boot because it builds a custom `llama-cpp-python`.
 
@@ -72,9 +77,16 @@ Keep `INSTALL_CUSTOM_NODES=0` for speed. The image already bakes the custom node
 
 ## Model Storage
 
-The template can download direct Hugging Face URLs from `manifests/models.json`, but the default Wan diffusion models point to Civitai pages and still need manual placement.
+The template downloads direct Hugging Face URLs and Civitai model-version URLs from `manifests/models.json`.
 
-For GGUF, place these in:
+Set `CIVITAI_TOKEN` through a RunPod Secret. Without it, the default GGUF/FP8 Wan diffusion downloads will fail early instead of saving an HTML login/error page as a model file.
+
+Downloads use `aria2c` when available:
+
+- `MODEL_DOWNLOAD_JOBS=4` downloads several files at once.
+- `ARIA2_CONNECTIONS=16` and `ARIA2_SPLITS=16` split each large file.
+
+For GGUF, downloads are written to:
 
 ```text
 /workspace/comfyui/models/unet
@@ -83,7 +95,7 @@ For GGUF, place these in:
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8High.gguf`
 - `wan22EnhancedNSFWSVICamera_nsfwV2Q8Low.gguf`
 
-For FP8, place these in:
+For FP8, downloads are written to:
 
 ```text
 /workspace/comfyui/models/diffusion_models
@@ -92,7 +104,7 @@ For FP8, place these in:
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors`
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8L.safetensors`
 
-Use a network volume if you do not want to redownload models for every pod.
+The startup script now downloads those files automatically when the matching profile is selected. Use a network volume so completed downloads are reused by future pods.
 
 ## GPU Guidance
 

@@ -11,6 +11,9 @@
   "environment": {
     "MODEL_PROFILE": "gguf",
     "DOWNLOAD_MODELS": "1",
+    "MODEL_DOWNLOAD_JOBS": "4",
+    "ARIA2_CONNECTIONS": "16",
+    "ARIA2_SPLITS": "16",
     "INSTALL_CUSTOM_NODES": "0",
     "USE_BAKED_CUSTOM_NODES": "1",
     "INSTALL_SYSTEM_DEPS": "0",
@@ -20,7 +23,9 @@
     "MODEL_ROOT": "/workspace/comfyui",
     "LISTEN": "0.0.0.0",
     "PORT": "8188",
-    "COMFYUI_ARGS": "--reserve-vram 3"
+    "COMFYUI_ARGS": "--reserve-vram 3",
+    "CIVITAI_TOKEN": "{{ RUNPOD_SECRET_CIVITAI_TOKEN }}",
+    "HF_TOKEN": "{{ RUNPOD_SECRET_HF_TOKEN }}"
   },
-  "manual_model_note": "Place Civitai Wan diffusion models in /workspace/ComfyUI/models/unet for GGUF or /workspace/ComfyUI/models/diffusion_models for FP8."
+  "manual_model_note": "Civitai Wan diffusion models now download automatically when CIVITAI_TOKEN is configured. GGUF files go to /workspace/comfyui/models/unet; FP8 files go to /workspace/comfyui/models/diffusion_models."
 }
