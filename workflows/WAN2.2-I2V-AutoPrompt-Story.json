@@ -2784,7 +2784,7 @@
       ],
       "flags": {},
       "order": 63,
-      "mode": 0,
+      "mode": 4,
       "inputs": [],
       "outputs": [
         {
@@ -3489,7 +3489,7 @@
         "collapsed": true
       },
       "order": 144,
-      "mode": 4,
+      "mode": 0,
       "inputs": [
         {
           "name": "image",
@@ -3501,7 +3501,9 @@
         {
           "name": "IMAGE",
           "type": "IMAGE",
-          "links": []
+          "links": [
+            5523
+          ]
         }
       ],
       "properties": {
@@ -4222,7 +4224,7 @@
       ],
       "flags": {},
       "order": 80,
-      "mode": 4,
+      "mode": 0,
       "inputs": [],
       "outputs": [
         {
@@ -4259,7 +4261,7 @@
         "collapsed": true
       },
       "order": 124,
-      "mode": 4,
+      "mode": 0,
       "inputs": [
         {
           "name": "upscale_model",
@@ -4448,7 +4450,7 @@
       ],
       "flags": {},
       "order": 120,
-      "mode": 0,
+      "mode": 4,
       "inputs": [
         {
           "name": "images",
@@ -4465,9 +4467,7 @@
         {
           "name": "upscaled_images",
           "type": "IMAGE",
-          "links": [
-            5523
-          ]
+          "links": []
         }
       ],
       "properties": {
@@ -8446,7 +8446,7 @@
     ],
     [
       5523,
-      1533,
+      1532,
       0,
       1421,
       0,

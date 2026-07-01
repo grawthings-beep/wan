@@ -52,6 +52,8 @@ ARIA2_SPLITS=16
 The default Civitai Wan GGUF/FP8 model files are downloaded automatically when `CIVITAI_TOKEN` is configured.
 The added `NSFW-22-H-e8 (1).safetensors` and `NSFW-22-L-e8 (1).safetensors` LoRAs require `HF_TOKEN` because their Hugging Face URLs reject anonymous requests.
 
+The bundled workflow uses the regular ComfyUI upscaler path by default. TensorRT upscaler nodes remain in the workflow but are disabled because they can fail on RunPod CUDA/driver combinations while building the TensorRT engine.
+
 The image is built by `.github/workflows/build-ghcr.yml` and pushed as:
 
 ```text

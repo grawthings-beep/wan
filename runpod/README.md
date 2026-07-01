@@ -39,6 +39,8 @@ MODEL_PROFILE=gguf DOWNLOAD_MODELS=1 bash runpod/start.sh
 
 Then open the RunPod HTTP service for port `8188`.
 
+The default workflow avoids TensorRT upscaling and uses the regular ComfyUI upscaler path. If you manually re-enable `LoadUpscalerTensorrtModel` / `UpscalerTensorrt`, a RunPod CUDA/driver mismatch can show up as `pybind11::init(): factory function returned nullptr` after `CUDA initialization failure with error: 35`.
+
 ## Important Environment Variables
 
 | Variable | Default | Meaning |
