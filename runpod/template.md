@@ -23,6 +23,8 @@ This GHCR image is built by GitHub Actions from this repository. It bakes ComfyU
 
 ComfyUI starts on `0.0.0.0:8188`, so RunPod's HTTP service for port `8188` opens the UI.
 
+The image also starts ComfyUI with `--enable-cors-header "*"`. Recent ComfyUI builds can return HTTP 403 behind RunPod's proxy when the browser `Origin` and proxied `Host` do not match.
+
 ## Docker Command / Start Command
 
 Leave this blank.
@@ -68,6 +70,7 @@ Without one of those, RunPod will fail before the container starts because GHCR 
 | `MODEL_ROOT` | `/workspace/comfyui` |
 | `LISTEN` | `0.0.0.0` |
 | `PORT` | `8188` |
+| `COMFYUI_CORS_HEADER` | `*` |
 | `COMFYUI_ARGS` | `--reserve-vram 3` |
 | `CIVITAI_TOKEN` | `{{ RUNPOD_SECRET_CIVITAI_TOKEN }}` |
 | `HF_TOKEN` | `{{ RUNPOD_SECRET_HF_TOKEN }}` |

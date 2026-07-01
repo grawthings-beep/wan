@@ -14,7 +14,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     WORKSPACE_DIR=/workspace/comfyui \
     MODEL_ROOT=/workspace/comfyui \
     LISTEN=0.0.0.0 \
-    PORT=8188
+    PORT=8188 \
+    COMFYUI_CORS_HEADER=*
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

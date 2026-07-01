@@ -35,6 +35,8 @@ ghcr.io/grawthings-beep/wan:cuda12.8
 
 Leave the Template start command blank and expose HTTP port `8188`.
 
+Keep `COMFYUI_CORS_HEADER=*` in the template. This prevents ComfyUI from rejecting RunPod proxy browser requests with HTTP 403 when the proxied host and browser origin differ.
+
 If RunPod cannot pull the image, make the GHCR package public or configure RunPod registry authentication for `ghcr.io`.
 
 Set these RunPod secrets/environment variables for model downloads:

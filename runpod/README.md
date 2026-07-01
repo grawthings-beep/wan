@@ -24,6 +24,8 @@ or configure RunPod registry authentication for `ghcr.io` with a GitHub token th
 
 Expose ComfyUI port `8188`.
 
+The image enables ComfyUI CORS for RunPod proxy access by default. If you override the template environment, keep `COMFYUI_CORS_HEADER=*`; otherwise recent ComfyUI builds may show HTTP 403 through `*.proxy.runpod.net` even though port `8188` is configured.
+
 ## Start ComfyUI
 
 From the RunPod terminal:
@@ -54,6 +56,7 @@ Then open the RunPod HTTP service for port `8188`.
 | `UPGRADE_PIP` | `0` | Set to `1` only when you need to update pip during startup. |
 | `CIVITAI_TOKEN` | unset | Required for the default Civitai Wan model downloads. Use a RunPod Secret. |
 | `HF_TOKEN` | unset | Required for the added `uwgm/nikke-loras` LoRAs and optional for other Hugging Face gated/private files. Use a RunPod Secret. |
+| `COMFYUI_CORS_HEADER` | `*` | Allows RunPod proxy browser access without ComfyUI host/origin 403. |
 | `COMFYUI_ARGS` | empty | Extra args passed to `main.py`. |
 
 ## Civitai Models

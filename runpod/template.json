@@ -24,6 +24,7 @@
     "MODEL_ROOT": "/workspace/comfyui",
     "LISTEN": "0.0.0.0",
     "PORT": "8188",
+    "COMFYUI_CORS_HEADER": "*",
     "COMFYUI_ARGS": "--reserve-vram 3",
     "CIVITAI_TOKEN": "{{ RUNPOD_SECRET_CIVITAI_TOKEN }}",
     "HF_TOKEN": "{{ RUNPOD_SECRET_HF_TOKEN }}"

@@ -7,6 +7,7 @@ PYTHON_BIN="${PYTHON_BIN:-python3}"
 MODEL_PROFILE="${MODEL_PROFILE:-gguf}"
 COMFYUI_HOST="${COMFYUI_HOST:-${LISTEN:-0.0.0.0}}"
 COMFYUI_PORT="${COMFYUI_PORT:-${PORT:-8188}}"
+COMFYUI_CORS_HEADER="${COMFYUI_CORS_HEADER:-*}"
 WORKSPACE_DIR="${WORKSPACE_DIR:-/workspace/comfyui}"
 MODEL_ROOT="${MODEL_ROOT:-${WORKSPACE_DIR}}"
 COMFYUI_WORKFLOW_DIR="${COMFYUI_WORKFLOW_DIR:-}"
@@ -166,10 +167,20 @@ if [ "${DOWNLOAD_MODELS}" != "0" ]; then
 fi
 
 echo "Starting ComfyUI on ${COMFYUI_HOST}:${COMFYUI_PORT}"
-# shellcheck disable=SC2086
+COMFYUI_EXTRA_ARGS=()
+COMFYUI_ARGS_VALUE="${COMFYUI_ARGS:-}"
+if [[ "${COMFYUI_ARGS_VALUE}" == \"*\" || "${COMFYUI_ARGS_VALUE}" == \'*\' ]]; then
+  COMFYUI_ARGS_VALUE="${COMFYUI_ARGS_VALUE:1:${#COMFYUI_ARGS_VALUE}-2}"
+fi
+if [ -n "${COMFYUI_ARGS_VALUE}" ]; then
+  # shellcheck disable=SC2206
+  COMFYUI_EXTRA_ARGS=(${COMFYUI_ARGS_VALUE})
+fi
+
 exec "${PYTHON_BIN}" "${COMFYUI_DIR}/main.py" \
   --listen "${COMFYUI_HOST}" \
   --port "${COMFYUI_PORT}" \
+  --enable-cors-header "${COMFYUI_CORS_HEADER}" \
   --input-directory "${WORKSPACE_DIR}/input" \
   --output-directory "${WORKSPACE_DIR}/output" \
-  ${COMFYUI_ARGS:-}
+  "${COMFYUI_EXTRA_ARGS[@]}"
