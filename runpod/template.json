@@ -28,5 +28,5 @@
     "CIVITAI_TOKEN": "{{ RUNPOD_SECRET_CIVITAI_TOKEN }}",
     "HF_TOKEN": "{{ RUNPOD_SECRET_HF_TOKEN }}"
   },
-  "manual_model_note": "Civitai Wan diffusion models now download automatically when CIVITAI_TOKEN is configured. GGUF files go to /workspace/comfyui/models/unet; FP8 files go to /workspace/comfyui/models/diffusion_models."
+  "manual_model_note": "Civitai Wan diffusion models download automatically when CIVITAI_TOKEN is configured. Added Hugging Face LoRAs download when HF_TOKEN is configured. GGUF files go to /workspace/comfyui/models/unet, FP8 files to /workspace/comfyui/models/diffusion_models, LoRAs to /workspace/comfyui/models/loras, and Qwen GGUF files to /workspace/comfyui/models/LLM/GGUF."
 }

@@ -67,6 +67,34 @@
       "notes": "Default FP8 low-noise model referenced by the workflow."
     },
     {
+      "filename": "NSFW-22-H-e8 (1).safetensors",
+      "type": "lora_high",
+      "target_path": "models/loras",
+      "profiles": ["gguf", "fp8"],
+      "source_url": "https://huggingface.co/uwgm/nikke-loras/resolve/main/NSFW-22-H-e8%20(1).safetensors",
+      "provider": "huggingface",
+      "token_env": "HF_TOKEN",
+      "requires_env": ["HF_TOKEN"],
+      "downloadable": true,
+      "required": true,
+      "min_bytes": 1048576,
+      "notes": "User-requested high-noise LoRA. The Hugging Face URL returns 401 without HF_TOKEN."
+    },
+    {
+      "filename": "NSFW-22-L-e8 (1).safetensors",
+      "type": "lora_low",
+      "target_path": "models/loras",
+      "profiles": ["gguf", "fp8"],
+      "source_url": "https://huggingface.co/uwgm/nikke-loras/resolve/main/NSFW-22-L-e8%20(1).safetensors",
+      "provider": "huggingface",
+      "token_env": "HF_TOKEN",
+      "requires_env": ["HF_TOKEN"],
+      "downloadable": true,
+      "required": true,
+      "min_bytes": 1048576,
+      "notes": "User-requested low-noise LoRA. The Hugging Face URL returns 401 without HF_TOKEN."
+    },
+    {
       "filename": "umt5-xxl-encoder-Q8_0.gguf",
       "type": "text_encoder_gguf",
       "target_path": "models/text_encoders",
@@ -113,6 +141,26 @@
       "profiles": ["optional"],
       "source_url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors",
       "downloadable": true
+    },
+    {
+      "filename": "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+      "type": "wan_diffusion_fp8_high_official",
+      "target_path": "models/diffusion_models",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+      "downloadable": true,
+      "required": false,
+      "notes": "Official Wan 2.2 FP8 high-noise file referenced in workflow node metadata; not selected by the current widget default."
+    },
+    {
+      "filename": "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+      "type": "wan_diffusion_fp8_low_official",
+      "target_path": "models/diffusion_models",
+      "profiles": ["optional"],
+      "source_url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+      "downloadable": true,
+      "required": false,
+      "notes": "Official Wan 2.2 FP8 low-noise file referenced in workflow node metadata; not selected by the current widget default."
     },
     {
       "filename": "wan_2.1_vae.safetensors",
@@ -177,6 +225,36 @@
       "profiles": ["mmaudio"],
       "source_url": "https://huggingface.co/Kijai/MMAudio_safetensors/resolve/main/apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
       "downloadable": true
+    },
+    {
+      "filename": "Qwen3-VL-8B-Instruct-c_abliterated-v3.Q8_0.gguf",
+      "type": "qwen_vl_gguf_model",
+      "target_path": "models/LLM/GGUF/mradermacher/Qwen3-VL-8B-Instruct-c_abliterated-v3-GGUF",
+      "profiles": ["qwen", "optional"],
+      "source_url": "https://huggingface.co/mradermacher/Qwen3-VL-8B-Instruct-c_abliterated-v3-GGUF/resolve/main/Qwen3-VL-8B-Instruct-c_abliterated-v3.Q8_0.gguf",
+      "downloadable": true,
+      "required": false,
+      "notes": "QwenVL-Mod GGUF autoprompt model referenced by the workflow. Requires INSTALL_QWENVL_GGUF_DEPS=1 before use."
+    },
+    {
+      "filename": "Qwen3-VL-8B-Instruct-c_abliterated-v3.mmproj-f16.gguf",
+      "type": "qwen_vl_gguf_mmproj",
+      "target_path": "models/LLM/GGUF/mradermacher/Qwen3-VL-8B-Instruct-c_abliterated-v3-GGUF",
+      "profiles": ["qwen", "optional"],
+      "source_url": "https://huggingface.co/mradermacher/Qwen3-VL-8B-Instruct-c_abliterated-v3-GGUF/resolve/main/Qwen3-VL-8B-Instruct-c_abliterated-v3.mmproj-f16.gguf",
+      "downloadable": true,
+      "required": false,
+      "notes": "Vision projector required by QwenVL-Mod for the matching GGUF model."
+    },
+    {
+      "filename": "Qwen3-VL-8B-Instruct-Unredacted-MAX",
+      "type": "qwen_vl_hf_snapshot",
+      "target_path": "models/LLM/Qwen-VL",
+      "profiles": ["qwen", "optional"],
+      "source_url": "https://huggingface.co/prithivMLmods/Qwen3-VL-8B-Instruct-Unredacted-MAX",
+      "downloadable": false,
+      "required": false,
+      "notes": "Referenced by the non-GGUF QwenVL node. ComfyUI-QwenVL-Mod downloads this Hugging Face snapshot on first use."
     },
     {
       "filename": "flownet.pkl",

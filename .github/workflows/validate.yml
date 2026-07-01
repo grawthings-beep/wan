@@ -29,7 +29,7 @@ jobs:
 
       - name: Check RunPod scripts
         run: |
-          python -m py_compile scripts/download_hf_models.py scripts/install_custom_nodes.py
+          python -m py_compile scripts/audit_workflow_manifest.py scripts/download_hf_models.py scripts/install_custom_nodes.py
           bash -n runpod/start.sh
           test -f Dockerfile
           test -f .dockerignore

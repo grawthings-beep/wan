@@ -82,6 +82,8 @@ The template downloads direct Hugging Face URLs and Civitai model-version URLs f
 
 Set `CIVITAI_TOKEN` through a RunPod Secret. Without it, the default GGUF/FP8 Wan diffusion downloads will fail early instead of saving an HTML login/error page as a model file.
 
+Set `HF_TOKEN` through a RunPod Secret too. The added `uwgm/nikke-loras` LoRA URLs reject anonymous requests, so the default `gguf`/`fp8` profiles need `HF_TOKEN`.
+
 Downloads use `aria2c` when available:
 
 - `MODEL_DOWNLOAD_JOBS=4` downloads several files at once.
@@ -104,6 +106,21 @@ For FP8, downloads are written to:
 
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors`
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8L.safetensors`
+
+The added LoRAs are written to:
+
+```text
+/workspace/comfyui/models/loras
+```
+
+- `NSFW-22-H-e8 (1).safetensors`
+- `NSFW-22-L-e8 (1).safetensors`
+
+QwenVL GGUF files for `MODEL_PROFILE=qwen` are written under:
+
+```text
+/workspace/comfyui/models/LLM/GGUF
+```
 
 The startup script now downloads those files automatically when the matching profile is selected. Use a network volume so completed downloads are reused by future pods.
 

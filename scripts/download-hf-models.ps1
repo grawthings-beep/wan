@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$ComfyUIPath,
 
-    [ValidateSet("gguf", "fp8", "mmaudio", "optional", "all")]
+    [ValidateSet("gguf", "fp8", "mmaudio", "qwen", "optional", "all")]
     [string]$Profile = "gguf",
 
     [string]$ManifestPath,
@@ -54,6 +54,17 @@ function Get-DownloadHeaders {
     param($Model)
 
     $headers = @{}
+    foreach ($requiredName in @($Model.requires_env | Where-Object { -not [string]::IsNullOrWhiteSpace([string]$_) })) {
+        $requiredValue = [Environment]::GetEnvironmentVariable([string]$requiredName)
+        if ([string]::IsNullOrWhiteSpace($requiredValue) -or (Test-TemplateValue $requiredValue)) {
+            if ($DryRun) {
+                Write-Host "DRY-RUN warning: missing required env for $($Model.filename): $requiredName"
+                return $null
+            }
+            throw "missing required env for $($Model.filename): $requiredName"
+        }
+    }
+
     if ($Model.source_url -like "*civitai.com*") {
         $tokenName = if ($Model.token_env) { [string]$Model.token_env } else { "CIVITAI_TOKEN" }
         $token = [Environment]::GetEnvironmentVariable($tokenName)

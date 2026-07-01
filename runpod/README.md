@@ -43,7 +43,7 @@ Then open the RunPod HTTP service for port `8188`.
 | --- | --- | --- |
 | `WORKSPACE_DIR` | `/workspace/comfyui` | Persistent input/output root. |
 | `MODEL_ROOT` | `/workspace/comfyui` | Persistent ComfyUI model root. |
-| `MODEL_PROFILE` | `gguf` | Model manifest profile: `gguf`, `fp8`, `mmaudio`, `optional`, or `all`. |
+| `MODEL_PROFILE` | `gguf` | Model manifest profile: `gguf`, `fp8`, `mmaudio`, `qwen`, `optional`, or `all`. |
 | `DOWNLOAD_MODELS` | `0` | Set to `1` to download Hugging Face and Civitai model URLs. |
 | `MODEL_DOWNLOAD_JOBS` | `4` | Number of model files to download in parallel. |
 | `ARIA2_CONNECTIONS` | `16` | Connections per file when `aria2c` is available. |
@@ -53,7 +53,7 @@ Then open the RunPod HTTP service for port `8188`.
 | `INSTALL_QWENVL_GGUF_DEPS` | `0` | Set to `1` to install the QwenVL GGUF `llama-cpp-python` fork. |
 | `UPGRADE_PIP` | `0` | Set to `1` only when you need to update pip during startup. |
 | `CIVITAI_TOKEN` | unset | Required for the default Civitai Wan model downloads. Use a RunPod Secret. |
-| `HF_TOKEN` | unset | Optional for Hugging Face gated/private files. Use a RunPod Secret. |
+| `HF_TOKEN` | unset | Required for the added `uwgm/nikke-loras` LoRAs and optional for other Hugging Face gated/private files. Use a RunPod Secret. |
 | `COMFYUI_ARGS` | empty | Extra args passed to `main.py`. |
 
 ## Civitai Models
@@ -70,6 +70,13 @@ For the default FP8 path, files are downloaded under `/workspace/comfyui/models/
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8H.safetensors`
 - `wan22EnhancedNSFWSVICamera_nsfwV2FP8L.safetensors`
 
+## LoRAs
+
+The default `gguf` and `fp8` profiles also download these LoRAs into `/workspace/comfyui/models/loras` when `HF_TOKEN` is set:
+
+- `NSFW-22-H-e8 (1).safetensors`
+- `NSFW-22-L-e8 (1).safetensors`
+
 ## MMAudio
 
 To include the MMAudio direct-download files:
@@ -77,6 +84,14 @@ To include the MMAudio direct-download files:
 ```bash
 MODEL_PROFILE=mmaudio DOWNLOAD_MODELS=1 bash runpod/start.sh
 ```
+
+To pre-download the QwenVL GGUF autoprompt files:
+
+```bash
+MODEL_PROFILE=qwen DOWNLOAD_MODELS=1 bash runpod/start.sh
+```
+
+The QwenVL GGUF path also needs `INSTALL_QWENVL_GGUF_DEPS=1` before use.
 
 You can also download every manifest entry, including Civitai files when `CIVITAI_TOKEN` is set:
 

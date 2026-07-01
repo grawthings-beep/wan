@@ -13,6 +13,7 @@ $requiredFiles = @(
     "manifests/custom_nodes.json",
     "manifests/models.json",
     "scripts/download-hf-models.ps1",
+    "scripts/audit_workflow_manifest.py",
     "scripts/download_hf_models.py",
     "scripts/install_custom_nodes.py",
     "runpod/start.sh",
@@ -62,6 +63,8 @@ $blockedTracked = @(
 if ($blockedTracked.Count -gt 0) {
     throw "Large model/media artifacts are tracked: $($blockedTracked -join ', ')"
 }
+
+python scripts/audit_workflow_manifest.py
 
 Write-Host "Repository validation passed."
 Write-Host "Custom nodes: $($customNodes.custom_nodes.Count)"

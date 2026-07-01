@@ -59,7 +59,10 @@ Use `manifests/models.json` as the source of truth. Common target folders:
 | GGUF diffusion models | `models/unet` or the folder expected by `ComfyUI-GGUF` |
 | Text encoders | `models/text_encoders` |
 | VAE | `models/vae` |
+| LoRAs | `models/loras` |
 | Upscale models | `models/upscale_models` |
+| QwenVL GGUF files | `models/LLM/GGUF` |
+| QwenVL HF snapshots | `models/LLM/Qwen-VL` |
 | MMAudio files | `models/mmaudio` |
 | VFI/RIFE files | folder expected by `ComfyUI-VFI` |
 
@@ -72,7 +75,7 @@ If a loader dropdown cannot see a file, refresh ComfyUI and check the custom nod
 - `VIDEO2 10SEC`, `VIDEO3 15SEC`, `VIDEO4 20SEC` - long-video continuation sections.
 - `30FPS`, `60FPS`, `MMAUDIO`, `MMAUDIO 24FPS`, `MMAUDIO 50FPS` - output and interpolation variants.
 - `UPSCALE`, `UPSCALE TENSORRT`, `COLOR MATCH` - post-processing groups.
-- `LIGHTX2V LORAS` - optional LoRA hooks. The copied workflow does not bundle LoRA files.
+- `LIGHTX2V LORAS` - optional LoRA hooks. LoRA files are listed in `manifests/models.json`, not bundled in git.
 
 ## Useful Defaults
 

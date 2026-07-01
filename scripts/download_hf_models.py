@@ -350,7 +350,7 @@ def main():
     parser.add_argument("--comfyui-path", help="Path to the ComfyUI installation. Kept for backward compatibility.")
     parser.add_argument("--root", help="Root directory that contains the ComfyUI-style models/ folders.")
     parser.add_argument("--manifest", default="manifests/models.json", help="Path to models.json.")
-    parser.add_argument("--profile", default="gguf", choices=["gguf", "fp8", "mmaudio", "optional", "all"])
+    parser.add_argument("--profile", default="gguf", choices=["gguf", "fp8", "mmaudio", "qwen", "optional", "all"])
     parser.add_argument("--dry-run", action="store_true", help="Print actions without downloading.")
     parser.add_argument("--required-only", action="store_true", help="Skip optional manifest entries.")
     parser.add_argument("--no-aria2", action="store_true", help="Do not use aria2c even when available.")

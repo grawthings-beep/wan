@@ -117,12 +117,23 @@ mkdir -p "${WORKSPACE_DIR}/input" \
          "${MODEL_ROOT}/models/controlnet" \
          "${MODEL_ROOT}/models/diffusion_models" \
          "${MODEL_ROOT}/models/embeddings" \
+         "${MODEL_ROOT}/models/LLM/GGUF" \
+         "${MODEL_ROOT}/models/LLM/Qwen-VL" \
          "${MODEL_ROOT}/models/loras" \
          "${MODEL_ROOT}/models/mmaudio" \
          "${MODEL_ROOT}/models/text_encoders" \
          "${MODEL_ROOT}/models/unet" \
          "${MODEL_ROOT}/models/upscale_models" \
          "${MODEL_ROOT}/models/vae"
+
+mkdir -p "${COMFYUI_DIR}/models"
+if [ ! -e "${COMFYUI_DIR}/models/LLM" ]; then
+  ln -s "${MODEL_ROOT}/models/LLM" "${COMFYUI_DIR}/models/LLM"
+elif [ -L "${COMFYUI_DIR}/models/LLM" ]; then
+  :
+else
+  echo "WARN: ${COMFYUI_DIR}/models/LLM already exists and is not a symlink; QwenVL custom-node downloads may not be persistent." >&2
+fi
 
 cat > "${COMFYUI_DIR}/extra_model_paths.yaml" <<YAML
 workspace:
@@ -134,6 +145,7 @@ workspace:
   controlnet: models/controlnet/
   diffusion_models: models/diffusion_models/
   embeddings: models/embeddings/
+  LLM: models/LLM/
   loras: models/loras/
   text_encoders: models/text_encoders/
   unet: models/unet/

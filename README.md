@@ -21,6 +21,7 @@ The original workflow and default model names are intended for adult/NSFW use. U
 - `runpod/template.env.example` - environment variables for the template.
 - `Dockerfile` - builds the RunPod/ComfyUI image published to GHCR.
 - `scripts/install_custom_nodes.py` - installs custom nodes from the manifest.
+- `scripts/audit_workflow_manifest.py` - checks that workflow model and custom-node references are covered by the manifests.
 - `scripts/download_hf_models.py` - fast cross-platform downloader for Hugging Face and Civitai model URLs.
 - `scripts/download-hf-models.ps1` - optional Windows helper for manifest model downloads.
 
@@ -47,6 +48,7 @@ ARIA2_SPLITS=16
 ```
 
 The default Civitai Wan GGUF/FP8 model files are downloaded automatically when `CIVITAI_TOKEN` is configured.
+The added `NSFW-22-H-e8 (1).safetensors` and `NSFW-22-L-e8 (1).safetensors` LoRAs require `HF_TOKEN` because their Hugging Face URLs reject anonymous requests.
 
 The image is built by `.github/workflows/build-ghcr.yml` and pushed as:
 
@@ -91,7 +93,7 @@ It downloads several files in parallel and uses `aria2c` when available. The Pow
 pwsh .\scripts\download-hf-models.ps1 -ComfyUIPath "C:\path\to\ComfyUI" -Profile gguf
 ```
 
-The default Civitai diffusion models require `CIVITAI_TOKEN`; without it, the downloader exits early instead of saving an HTML login/error page as a model file.
+The default Civitai diffusion models require `CIVITAI_TOKEN`, and the added Hugging Face LoRAs require `HF_TOKEN`; without the needed token, the downloader exits early instead of saving an HTML login/error page as a model file.
 
 ## Workflow Defaults
 
