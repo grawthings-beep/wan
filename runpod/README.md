@@ -41,6 +41,8 @@ Then open the RunPod HTTP service for port `8188`.
 
 The default workflow avoids TensorRT upscaling and uses the regular ComfyUI upscaler path. If you manually re-enable `LoadUpscalerTensorrtModel` / `UpscalerTensorrt`, a RunPod CUDA/driver mismatch can show up as `pybind11::init(): factory function returned nullptr` after `CUDA initialization failure with error: 35`.
 
+It also leaves KJNodes SageAttention patches disabled. Re-enable them only if you install a compatible `sageattention` build in the image; otherwise `PathchSageAttentionKJ` fails with `ModuleNotFoundError: No module named 'sageattention'`.
+
 ## Important Environment Variables
 
 | Variable | Default | Meaning |

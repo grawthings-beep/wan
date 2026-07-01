@@ -55,6 +55,8 @@ Use `manifests/models.json` as the source of truth. Common target folders:
 
 The bundled RunPod workflow disables the TensorRT upscaler path by default. Some CUDA/driver/TensorRT combinations fail while building the upscaler engine with `CUDA initialization failure with error: 35`; the active path uses ComfyUI's core `UpscaleModelLoader` and `ImageUpscaleWithModel` nodes with `2xLexicaRRDBNet.pth` instead.
 
+SageAttention patch nodes are also set to `disabled` by default. The image uses PyTorch `cu128`, while the upstream KJNodes SageAttention mode requires the separate `sageattention` package; leaving those nodes on `auto` can stop the workflow with `ModuleNotFoundError: No module named 'sageattention'`.
+
 | Model type | Target folder under ComfyUI |
 | --- | --- |
 | Core FP8 diffusion models | `models/diffusion_models` |
